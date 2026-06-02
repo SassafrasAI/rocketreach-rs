@@ -1,6 +1,6 @@
 use crate::client::RocketReachClient;
 use crate::error::Result;
-use crate::types::{AccountState, Plan, RateLimitInfo, UniversalCreditUsage, UniversalCreditUsageByAction};
+use crate::types::{AccountState, RateLimitInfo, CreditUsage};
 use serde::Deserialize;
 
 #[derive(Debug, Clone, Deserialize)]
@@ -10,11 +10,8 @@ pub struct Account {
     pub last_name: Option<String>,
     pub email: Option<String>,
     pub state: Option<AccountState>,
-    pub plan: Option<Plan>,
-    pub api_key: Option<String>,
-    pub api_key_domain: Option<String>,
-    pub daily_api_num_calls: Option<u64>,
-    pub daily_api_limit: Option<String>,
+    pub credit_usage: Option<Vec<CreditUsage>>,
+    pub rate_limits: Option<Vec<RateLimitInfo>>,
 }
 
 #[derive(Debug, Clone, Deserialize)]
@@ -24,13 +21,7 @@ pub struct UniversalAccount {
     pub last_name: Option<String>,
     pub email: Option<String>,
     pub state: Option<AccountState>,
-    pub plan: Option<Plan>,
-    pub api_key: Option<String>,
-    pub api_key_domain: Option<String>,
-    pub daily_api_num_calls: Option<u64>,
-    pub daily_api_limit: Option<String>,
-    pub credit_usage: Option<UniversalCreditUsage>,
-    pub credit_usage_by_action: Option<Vec<UniversalCreditUsageByAction>>,
+    pub credit_usage: Option<Vec<CreditUsage>>,
     pub rate_limits: Option<Vec<RateLimitInfo>>,
 }
 
@@ -57,7 +48,9 @@ impl AccountApi {
     pub async fn create_api_key(&self) -> Result<ApiKeyResponse> {
         let response = self.client
             .post("/account/key/")
-            .json(&serde_json::json!({}))
+            .json(&serde_json::json!({
+                "api_key": self.client.api_key
+            }))
             .send()
             .await?;
         RocketReachClient::handle_response(response).await

@@ -68,7 +68,7 @@ impl UniversalPersonApi {
             .query(&[("ids", ids_str.join(","))])
             .send()
             .await?;
-        RocketReachClient::handle_response(response).await
+        RocketReachClient::handle_response_extract_array(response, &["data", "profiles"]).await
     }
 
     pub async fn search(&self, request: &SearchRequest) -> Result<Vec<PersonSearchResult>> {
@@ -77,7 +77,7 @@ impl UniversalPersonApi {
             .json(request)
             .send()
             .await?;
-        RocketReachClient::handle_response(response).await
+        RocketReachClient::handle_response_extract_array(response, &["people", "data", "results"]).await
     }
 
     pub async fn search_with_query(&self, query: PersonQuery) -> Result<Vec<PersonSearchResult>> {

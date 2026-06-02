@@ -1,6 +1,7 @@
 use crate::client::RocketReachClient;
 use crate::error::Result;
-use crate::search::{SearchRequest};
+use crate::search::SearchRequest;
+use crate::types::{deserialize_int_or_string, deserialize_or_empty_vec, deserialize_string_or_vec};
 use crate::types::*;
 use serde::Deserialize;
 
@@ -31,70 +32,120 @@ pub struct PersonLookupRequest {
 #[derive(Debug, Clone, Deserialize)]
 pub struct PersonProfile {
     pub id: Option<u64>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub status: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub name: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub profile_pic: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub linkedin_url: Option<String>,
     pub connections: Option<u32>,
+    #[serde(default)]
     pub links: Option<serde_json::Map<String, serde_json::Value>>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub location: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub city: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub region: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub country: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub country_code: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub current_title: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub current_employer: Option<String>,
     pub current_employer_id: Option<u64>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub current_employer_domain: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub current_employer_website: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub current_employer_linkedin_url: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub current_employer_industry: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_or_empty_vec")]
     pub job_history: Option<Vec<JobHistory>>,
+    #[serde(default, deserialize_with = "deserialize_or_empty_vec")]
     pub education: Option<Vec<Education>>,
+    #[serde(default, deserialize_with = "deserialize_or_empty_vec")]
     pub skills: Option<Vec<String>>,
-    pub birth_year: Option<u32>,
+    #[serde(default, deserialize_with = "deserialize_int_or_string")]
+    pub birth_year: Option<String>,
     pub region_latitude: Option<f64>,
     pub region_longitude: Option<f64>,
+    #[serde(default)]
     pub npi_data: Option<serde_json::Value>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub tags: Option<String>,
     pub return_cached_emails: Option<bool>,
     pub linkedin_url_active: Option<bool>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub recommended_email: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub recommended_personal_email: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub recommended_professional_email: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub current_work_email: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub current_personal_email: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_or_empty_vec")]
     pub emails: Option<Vec<ProfileEmail>>,
+    #[serde(default, deserialize_with = "deserialize_or_empty_vec")]
     pub phones: Option<Vec<ProfilePhone>>,
+    #[serde(default)]
     pub profile_list: Option<ProfileList>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub update_time: Option<String>,
 }
 
 #[derive(Debug, Clone, Deserialize)]
 pub struct PersonSearchResult {
     pub id: Option<u64>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub status: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub name: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub profile_pic: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub linkedin_url: Option<String>,
     pub connections: Option<u32>,
+    #[serde(default)]
     pub links: Option<serde_json::Map<String, serde_json::Value>>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub location: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub city: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub region: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub country: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub country_code: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub current_title: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub current_employer: Option<String>,
     pub current_employer_id: Option<u64>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub current_employer_domain: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub current_employer_website: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub current_employer_linkedin_url: Option<String>,
-    pub birth_year: Option<u32>,
+    #[serde(default, deserialize_with = "deserialize_int_or_string")]
+    pub birth_year: Option<String>,
     pub region_latitude: Option<f64>,
     pub region_longitude: Option<f64>,
+    #[serde(default)]
     pub teaser: Option<SearchTeaser>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub suppressed: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub update_time: Option<String>,
 }
 
@@ -102,6 +153,7 @@ pub struct PersonSearchResult {
 pub struct PersonAndCompanyProfile {
     #[serde(flatten)]
     pub profile: PersonProfile,
+    #[serde(default)]
     pub company: Option<crate::company::Company>,
 }
 
@@ -142,40 +194,69 @@ pub struct UniversalPersonLookupRequest {
 #[derive(Debug, Clone, Deserialize)]
 pub struct UniversalPersonProfile {
     pub id: Option<u64>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub status: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub name: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub profile_pic: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub linkedin_url: Option<String>,
     pub connections: Option<u32>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub location: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub city: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub region: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub country: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub country_code: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub current_title: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub current_employer: Option<String>,
     pub current_employer_id: Option<u64>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub current_employer_domain: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub current_employer_website: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub current_employer_linkedin_url: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_int_or_string")]
     pub birth_year: Option<String>,
     pub region_latitude: Option<f64>,
     pub region_longitude: Option<f64>,
     pub return_cached_emails: Option<bool>,
     pub linkedin_url_active: Option<bool>,
+    #[serde(default, deserialize_with = "deserialize_or_empty_vec")]
     pub job_history: Option<Vec<JobHistory>>,
+    #[serde(default, deserialize_with = "deserialize_or_empty_vec")]
     pub education: Option<Vec<Education>>,
+    #[serde(default, deserialize_with = "deserialize_or_empty_vec")]
     pub skills: Option<Vec<String>>,
+    #[serde(default)]
     pub links: Option<serde_json::Map<String, serde_json::Value>>,
+    #[serde(default)]
     pub npi_data: Option<serde_json::Value>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub recommended_email: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_or_empty_vec")]
     pub emails: Option<Vec<ProfileEmail>>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub recommended_personal_email: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub current_personal_email: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub recommended_professional_email: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub current_work_email: Option<String>,
+    #[serde(default, deserialize_with = "deserialize_or_empty_vec")]
     pub phones: Option<Vec<ProfilePhone>>,
+    #[serde(default)]
     pub metadata: Option<serde_json::Value>,
+    #[serde(default)]
     pub profile_list: Option<ProfileList>,
 }
 
@@ -238,7 +319,7 @@ impl PersonApi {
             .query(&[("ids", ids_str.join(","))])
             .send()
             .await?;
-        RocketReachClient::handle_response(response).await
+        RocketReachClient::handle_response_extract_array(response, &["data", "profiles"]).await
     }
 
     pub async fn search(&self, request: &SearchRequest) -> Result<Vec<PersonSearchResult>> {
@@ -247,7 +328,7 @@ impl PersonApi {
             .json(request)
             .send()
             .await?;
-        RocketReachClient::handle_response(response).await
+        RocketReachClient::handle_response_extract_array(response, &["people", "data", "results"]).await
     }
 
     pub async fn person_and_company_lookup_by_id(&self, id: u64, return_cached_emails: Option<bool>) -> Result<PersonAndCompanyProfile> {

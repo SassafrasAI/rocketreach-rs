@@ -67,4 +67,34 @@ impl RocketReachClient {
             Err(error::map_response_error(status, &headers, &body))
         }
     }
+
+    pub(crate) async fn handle_response_extract_array<T: serde::de::DeserializeOwned>(
+        response: reqwest::Response,
+        keys: &[&str],
+    ) -> Result<Vec<T>> {
+        let status = response.status();
+        let headers = response.headers().clone();
+        let body = response.text().await?;
+
+        if !status.is_success() {
+            return Err(error::map_response_error(status, &headers, &body));
+        }
+
+        let value: serde_json::Value = serde_json::from_str(&body)?;
+        for key in keys {
+            if let Some(arr) = value.get(key).and_then(|v| v.as_array()) {
+                let items: Vec<T> = arr
+                    .iter()
+                    .filter_map(|item| serde_json::from_value(item.clone()).ok())
+                    .collect();
+                return Ok(items);
+            }
+        }
+
+        if value.is_array() {
+            return serde_json::from_value(value).map_err(Error::from);
+        }
+
+        Ok(vec![])
+    }
 }

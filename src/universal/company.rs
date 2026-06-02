@@ -64,7 +64,7 @@ impl UniversalCompanyApi {
             .json(request)
             .send()
             .await?;
-        RocketReachClient::handle_response(response).await
+        RocketReachClient::handle_response_extract_array(response, &["companies", "data", "results"]).await
     }
 
     pub async fn search_with_query(&self, query: CompanyQuery) -> Result<Vec<UniversalCompanySearchResult>> {
