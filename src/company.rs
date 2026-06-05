@@ -2,9 +2,9 @@ use crate::client::RocketReachClient;
 use crate::error::Result;
 use crate::search::{CompanySearchRequest, CompanyQuery};
 use crate::types::{deserialize_int_or_string, deserialize_or_empty_vec, deserialize_string_or_vec, CompanyAddress, CompanyQuarterlyGrowth};
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Company {
     pub id: Option<u64>,
     #[serde(default, deserialize_with = "deserialize_string_or_vec")]
@@ -55,7 +55,7 @@ pub struct Company {
     pub company_growth: Option<Vec<CompanyQuarterlyGrowth>>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CompanyLinks {
     #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub facebook: Option<String>,
@@ -65,7 +65,7 @@ pub struct CompanyLinks {
     pub linkedin: Option<String>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CompanySearchResult {
     pub id: Option<u64>,
     #[serde(default, deserialize_with = "deserialize_string_or_vec")]
@@ -84,7 +84,7 @@ pub struct CompanySearchResult {
     pub country_code: Option<String>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UniversalCompanySearchResult {
     pub id: Option<u64>,
     #[serde(default, deserialize_with = "deserialize_string_or_vec")]

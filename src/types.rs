@@ -161,7 +161,7 @@ pub enum PhoneValidity {
     Unknown,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProfileEmail {
     #[serde(deserialize_with = "deserialize_string_or_vec_required")]
     pub email: String,
@@ -175,7 +175,7 @@ pub struct ProfileEmail {
     pub grade: Option<String>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProfilePhone {
     #[serde(deserialize_with = "deserialize_string_or_vec_required")]
     pub number: String,
@@ -193,7 +193,7 @@ pub struct ProfilePhone {
     pub recommended: Option<bool>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Education {
     #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub school: Option<String>,
@@ -207,7 +207,7 @@ pub struct Education {
     pub end: Option<u32>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct JobHistory {
     #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub start_date: Option<String>,
@@ -243,7 +243,7 @@ pub struct JobHistory {
     pub is_current: Option<bool>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct NpiData {
     #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub npi_number: Option<String>,
@@ -255,14 +255,14 @@ pub struct NpiData {
     pub specialization: Option<String>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProfileList {
     pub id: u64,
     #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub name: Option<String>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CompanyAddress {
     #[serde(default, deserialize_with = "deserialize_string_or_vec")]
     pub description: Option<String>,
@@ -282,7 +282,7 @@ pub struct CompanyAddress {
     pub country_code: Option<String>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CompanyQuarterlyGrowth {
     #[serde(default)]
     pub year: Option<i32>,
@@ -292,7 +292,7 @@ pub struct CompanyQuarterlyGrowth {
     pub values: Option<Vec<i64>>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SearchTeaser {
     #[serde(default)]
     pub emails: Option<Vec<String>>,
@@ -310,7 +310,7 @@ pub struct SearchTeaser {
     pub professional_emails: Option<Vec<String>>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RateLimitInfo {
     #[serde(default)]
     pub action: Option<String>,
@@ -324,7 +324,7 @@ pub struct RateLimitInfo {
     pub remaining: Option<String>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreditUsage {
     #[serde(default)]
     pub credit_type: Option<String>,
@@ -336,7 +336,7 @@ pub struct CreditUsage {
     pub remaining: Option<String>,
 }
 
-#[derive(Debug, Clone, Deserialize, PartialEq, Eq)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "snake_case")]
 pub enum AccountState {
     Anonymous,

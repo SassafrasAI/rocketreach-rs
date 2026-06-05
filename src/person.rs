@@ -3,9 +3,9 @@ use crate::error::Result;
 use crate::search::SearchRequest;
 use crate::types::{deserialize_int_or_string, deserialize_or_empty_vec, deserialize_string_or_vec};
 use crate::types::*;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PersonLookupRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub id: Option<u64>,
@@ -29,7 +29,7 @@ pub struct PersonLookupRequest {
     pub return_cached_emails: Option<bool>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PersonProfile {
     pub id: Option<u64>,
     #[serde(default, deserialize_with = "deserialize_string_or_vec")]
@@ -102,7 +102,7 @@ pub struct PersonProfile {
     pub update_time: Option<String>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PersonSearchResult {
     pub id: Option<u64>,
     #[serde(default, deserialize_with = "deserialize_string_or_vec")]
@@ -149,7 +149,7 @@ pub struct PersonSearchResult {
     pub update_time: Option<String>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PersonAndCompanyProfile {
     #[serde(flatten)]
     pub profile: PersonProfile,
@@ -157,7 +157,7 @@ pub struct PersonAndCompanyProfile {
     pub company: Option<crate::company::Company>,
 }
 
-#[derive(Debug, Clone, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct UniversalPersonLookupRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub id: Option<u64>,
@@ -191,7 +191,7 @@ pub struct UniversalPersonLookupRequest {
     pub metadata: Option<serde_json::Value>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UniversalPersonProfile {
     pub id: Option<u64>,
     #[serde(default, deserialize_with = "deserialize_string_or_vec")]

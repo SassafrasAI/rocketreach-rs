@@ -1,9 +1,9 @@
 use crate::client::RocketReachClient;
 use crate::error::Result;
 use crate::types::{AccountState, RateLimitInfo, CreditUsage};
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Account {
     pub id: Option<u64>,
     pub first_name: Option<String>,
@@ -14,7 +14,7 @@ pub struct Account {
     pub rate_limits: Option<Vec<RateLimitInfo>>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UniversalAccount {
     pub id: Option<u64>,
     pub first_name: Option<String>,
@@ -25,7 +25,7 @@ pub struct UniversalAccount {
     pub rate_limits: Option<Vec<RateLimitInfo>>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ApiKeyResponse {
     pub api_key: Option<String>,
 }
